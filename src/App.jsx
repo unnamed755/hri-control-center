@@ -26,8 +26,9 @@ import HrAnalyticsPage from '@/pages/analytics/HrAnalyticsPage'
 import ReportsPage from '@/pages/reports/ReportsPage'
 import NotFoundPage from '@/pages/NotFoundPage'
 
+/** BASE_URL keeps routing correct when the app is served from a subpath. */
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={import.meta.env.BASE_URL}>
     <Routes>
       <Route element={<AppShell />}>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />

@@ -1,5 +1,7 @@
 # HRI · Control Center
 
+**Jonli demo:** https://unnamed755.github.io/hri-control-center/
+
 Korporativ HR boshqaruv platformasining **to‘liq interaktiv DEMO versiyasi**.
 Barcha modullar bitta demo ma’lumot bazasidan ishlaydi: rekrutingdagi o‘zgarish
 onboardingda, xodimlarda, payrollda va analitikada bir zumda aks etadi.
@@ -16,6 +18,7 @@ npm install
 npm run dev      # http://localhost:5173
 npm run build    # dist/
 npm run preview
+npm run deploy   # build + gh-pages branchga chiqarish
 ```
 
 Stack: **React 19 · Vite 7 · Tailwind CSS v4 · framer-motion 12 · recharts 2 ·

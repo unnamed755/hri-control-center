@@ -3,7 +3,14 @@ import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
-export default defineConfig({
+/**
+ * `base` is only applied to production builds so the bundle works when it is
+ * served from a project subpath (GitHub Pages: /hri-control-center/).
+ * Local development keeps the plain "/" root.
+ * Override with BASE_PATH=/ when deploying to a custom domain.
+ */
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? (process.env.BASE_PATH ?? '/hri-control-center/') : '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -29,4 +36,4 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 700,
   },
-})
+}))
