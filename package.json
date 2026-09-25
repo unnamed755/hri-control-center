@@ -7,8 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --base /hri-control-center/",
-    "deploy": "vite build && node scripts/deploy-pages.mjs",
+    "preview": "vite preview",
+    "deploy": "vercel --prod",
+    "deploy:pages": "node scripts/deploy-pages.mjs",
     "lint": "eslint ."
   },
   "dependencies": {

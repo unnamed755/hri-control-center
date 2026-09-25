@@ -4,13 +4,12 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 /**
- * `base` is only applied to production builds so the bundle works when it is
- * served from a project subpath (GitHub Pages: /hri-control-center/).
- * Local development keeps the plain "/" root.
- * Override with BASE_PATH=/ when deploying to a custom domain.
+ * The build targets a domain root by default (Vercel, Netlify, any static host).
+ * Deploys that live under a subpath set BASE_PATH — `npm run deploy:pages`
+ * passes /hri-control-center/ for GitHub Pages.
  */
-export default defineConfig(({ command }) => ({
-  base: command === 'build' ? (process.env.BASE_PATH ?? '/hri-control-center/') : '/',
+export default defineConfig({
+  base: process.env.BASE_PATH ?? '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -36,4 +35,4 @@ export default defineConfig(({ command }) => ({
     },
     chunkSizeWarningLimit: 700,
   },
-}))
+})

@@ -1,6 +1,6 @@
 # HRI · Control Center
 
-**Jonli demo:** https://unnamed755.github.io/hri-control-center/
+**Jonli demo:** https://hri-control-center.vercel.app
 
 Korporativ HR boshqaruv platformasining **to‘liq interaktiv DEMO versiyasi**.
 Barcha modullar bitta demo ma’lumot bazasidan ishlaydi: rekrutingdagi o‘zgarish
@@ -15,11 +15,17 @@ onboardingda, xodimlarda, payrollda va analitikada bir zumda aks etadi.
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173
-npm run build    # dist/
+npm run dev           # http://localhost:5173
+npm run build         # dist/
 npm run preview
-npm run deploy   # build + gh-pages branchga chiqarish
+npm run deploy        # Vercel production (jonli demo)
+npm run deploy:pages  # GitHub Pages mirror (gh-pages branch)
 ```
+
+Hosting: asosiy manzil — **Vercel** (domen ildizidan, `vercel.json` dagi rewrite
+barcha route larni SPA ga yo‘naltiradi). `gh-pages` branch zaxira mirror sifatida
+saqlanadi, lekin ba‘zi provayderlar `*.github.io` ni bloklaydi — shuning uchun
+ulashish uchun Vercel manzilidan foydalaning.
 
 Stack: **React 19 · Vite 7 · Tailwind CSS v4 · framer-motion 12 · recharts 2 ·
 react-router 7 · zustand 5** (JavaScript, TypeScript emas).

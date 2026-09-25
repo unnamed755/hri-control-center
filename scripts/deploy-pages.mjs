@@ -1,11 +1,14 @@
 /**
  * Publishes the production build to the `gh-pages` branch.
  *
- *   npm run deploy      (runs `vite build` first via the npm script)
+ *   npm run deploy:pages
  *
- * `dist/` is a throwaway git repo here — the main history stays untouched.
- * 404.html is a copy of index.html so GitHub Pages can serve client-side
- * routes (/employees, /payroll, …) instead of its own 404 page.
+ * Pages serves the site from /hri-control-center/, so the bundle is rebuilt
+ * here with BASE_PATH instead of reusing the root-based `npm run build`.
+ *
+ * `dist/` is a throwaway git repo — the main history stays untouched.
+ * 404.html is a copy of index.html so Pages serves client-side routes
+ * (/employees, /payroll, …) instead of its own 404 page.
  */
 import { execFileSync } from 'node:child_process'
 import { copyFileSync, existsSync, rmSync, writeFileSync } from 'node:fs'
@@ -14,9 +17,16 @@ import path from 'node:path'
 const dist = path.resolve('dist')
 const remote = process.env.PAGES_REMOTE ?? 'https://github.com/unnamed755/hri-control-center.git'
 const branch = 'gh-pages'
+const basePath = process.env.BASE_PATH ?? '/hri-control-center/'
+
+execFileSync('npx', ['vite', 'build'], {
+  stdio: 'inherit',
+  shell: process.platform === 'win32',
+  env: { ...process.env, BASE_PATH: basePath },
+})
 
 if (!existsSync(path.join(dist, 'index.html'))) {
-  console.error('dist/index.html topilmadi — avval `npm run build` bajaring.')
+  console.error('dist/index.html topilmadi — build muvaffaqiyatsiz.')
   process.exit(1)
 }
 
@@ -32,4 +42,4 @@ git('-c', 'core.safecrlf=false', 'commit', '-q', '-m', `Deploy ${new Date().toIS
 git('push', '-q', '-f', remote, branch)
 rmSync(path.join(dist, '.git'), { recursive: true, force: true })
 
-console.log(`\nDeploy tayyor: https://unnamed755.github.io/hri-control-center/`)
+console.log(`\nPages deploy tayyor: https://unnamed755.github.io${basePath}`)
